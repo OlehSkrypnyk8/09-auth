@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes } from "@/lib/api/clientApi";
 import type { Note, NoteTag } from "@/types/note";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
@@ -11,7 +11,7 @@ import Modal from "@/components/Modal/Modal";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Link from "next/link";
 
-import css from "@/app/notes/filter/[...slug]/Notes.module.css";
+import css from "@/app/(private routes)/notes/filter/[...slug]/Notes.module.css";
 
 interface NotesClientProps {
   tag: NoteTag | undefined;

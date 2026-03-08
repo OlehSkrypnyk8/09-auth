@@ -1,5 +1,5 @@
 import Link from "next/link";
-import css from "@/app/notes/filter/@sidebar/SidebarNotes.module.css";
+import css from "@/app/(private routes)/notes/filter/@sidebar/SidebarNotes.module.css";
 import { NOTE_TAGS } from "@/types/note";
 
 function SidebarNotes() {

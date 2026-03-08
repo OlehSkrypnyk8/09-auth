@@ -4,14 +4,11 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-
-import { fetchNoteById } from "@/lib/api";
-import NoteDetailsClient from "@/app/notes/[id]/NoteDetails.client";
+import NoteDetailsClient from "./NoteDetails.client";
+import { fetchNoteById } from "@/lib/api/serverApi";
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
 export async function generateMetadata({
@@ -31,7 +28,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://08-zustand-omega-tan.vercel.app/notes/${id}`,
+      url: `https://yourdomain.com/notes/${id}`,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
@@ -49,7 +46,6 @@ export default async function Page({ params }: PageProps) {
   const { id } = params;
 
   const queryClient = new QueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
@@ -57,7 +53,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NoteDetailsClient />
+      <NoteDetailsClient id={id} />
     </HydrationBoundary>
   );
 }
