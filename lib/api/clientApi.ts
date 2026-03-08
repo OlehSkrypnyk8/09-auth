@@ -1,5 +1,5 @@
 import { nextServer } from "./api";
-import { User, RegisterRequest, LoginRequest } from "@/types/auth";
+import { User, RegisterRequest, LoginRequest } from "@/types/user";
 import { Note, CreateNote, NoteTag } from "@/types/note";
 
 interface FetchNotesResponse {
