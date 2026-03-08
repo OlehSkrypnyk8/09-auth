@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import css from "./EditProfilePage.module.css";
 import { getMe, updateMe } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 
 export default function EditProfilePage() {
   const router = useRouter();
+  const { user, setUser } = useAuthStore();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -16,10 +18,10 @@ export default function EditProfilePage() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const user = await getMe();
-        setUsername(user.username);
-        setEmail(user.email);
-        setAvatar(user.avatar);
+        const userData = await getMe();
+        setUsername(userData.username);
+        setEmail(userData.email);
+        setAvatar(userData.avatar);
       } catch {
         setError("Failed to load user data");
       }
@@ -32,7 +34,8 @@ export default function EditProfilePage() {
     setError("");
 
     try {
-      await updateMe(username);
+      const updatedUser = await updateMe(username);
+      setUser(updatedUser);
       router.push("/profile");
     } catch {
       setError("Failed to update username");

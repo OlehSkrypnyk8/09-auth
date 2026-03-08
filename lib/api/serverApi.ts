@@ -55,13 +55,14 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
   return response.data;
 };
 
-export async function checkSession(): Promise<boolean> {
-  const { data } = await nextServer.get<{ success: boolean }>(
+export async function checkSession(): Promise<
+  AxiosResponse<{ success: boolean }>
+> {
+  const response = await nextServer.get<{ success: boolean }>(
     "/auth/session",
     await authHeaders()
   );
-
-  return data.success;
+  return response;
 }
 
 export const getMe = async (): Promise<User> => {

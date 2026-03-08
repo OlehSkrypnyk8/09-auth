@@ -34,8 +34,9 @@ export async function createNote(note: CreateNote): Promise<Note> {
   return data;
 }
 
-export async function deleteNote(id: string): Promise<void> {
-  await nextServer.delete(`/notes/${id}`);
+export async function deleteNote(id: string): Promise<Note> {
+  const { data } = await nextServer.delete<Note>(`/notes/${id}`);
+  return data;
 }
 
 export async function register(payload: RegisterRequest): Promise<User> {
