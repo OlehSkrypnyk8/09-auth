@@ -45,13 +45,10 @@ export const fetchNotes = async (
 };
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  const cookieStore = await cookies();
-
-  const response = await nextServer.get<Note>(`/notes/${id}`, {
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
-  });
+  const response = await nextServer.get<Note>(
+    `/notes/${id}`,
+    await authHeaders()
+  );
   return response.data;
 };
 
@@ -66,13 +63,6 @@ export async function checkSession(): Promise<
 }
 
 export const getMe = async (): Promise<User> => {
-  const cookieStore = await cookies();
-
-  const { data } = await nextServer.get<User>("/users/me", {
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
-  });
-
+  const { data } = await nextServer.get<User>("/users/me", await authHeaders());
   return data;
 };
